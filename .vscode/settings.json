@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "commons.h": "c",
+        "client_ftp.h": "c"
+    }
+}
