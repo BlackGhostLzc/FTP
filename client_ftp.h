@@ -35,5 +35,6 @@ void command_rput(struct packet *, struct packet *, int);
 
 // 服务器删除文件
 void command_lrm(char *);
+void command_rm(struct packet *, struct packet *, int, char *);
 
 // 客户端删除文件
