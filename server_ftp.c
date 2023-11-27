@@ -25,7 +25,7 @@ int main(void)
 	if ((x = bind(sfd_server, (struct sockaddr *)&sin_server, size_sockaddr)) < 0)
 		er("bind()", x);
 
-	if ((x = listen(sfd_server, 1)) < 0)
+	if ((x = listen(sfd_server, MAX_CLIENT_NUM)) < 0)
 		er("listen()", x);
 
 	printf(ID "FTP Server started up @ local:%d. Waiting for client(s)...\n\n", PORTSERVER);
@@ -143,6 +143,10 @@ void *serve_client(void *info)
 				send_EOT(shp, data, sfd_client);
 				if ((x = chdir(lpwd)) == -1)
 					fprintf(stderr, "Wrong path.\n");
+
+			case RM:
+				command_rm(shp, data, sfd_client);
+				break;
 			default:
 				// print error
 				break;

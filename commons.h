@@ -81,35 +81,34 @@
 
 #include <dirent.h>
 
-#define	DEBUG		1
+#define DEBUG 1
 
-#define	PORTSERVER	8487
-#define CONTROLPORT	PORTSERVER
-#define DATAPORT	(PORTSERVER + 1)
+#define PORTSERVER 8487
+#define CONTROLPORT PORTSERVER
+#define DATAPORT (PORTSERVER + 1)
 
 enum TYPE
-	{
-		REQU,
-		DONE,
-		INFO,
-		TERM,
-		DATA,
-		EOT
-	};
+{
+	REQU,
+	DONE,
+	INFO,
+	TERM,
+	DATA,
+	EOT
+};
 
-#define	NP		0
-#define	HP		1
+#define NP 0
+#define HP 1
 
-#define	er(e, x)					\
-	do						\
-	{						\
-		perror("ERROR IN: " #e "\n");		\
-		fprintf(stderr, "%d\n", x);		\
-		exit(-1);				\
-	}						\
-	while(0)
+#define er(e, x)                      \
+	do                                \
+	{                                 \
+		perror("ERROR IN: " #e "\n"); \
+		fprintf(stderr, "%d\n", x);   \
+		exit(-1);                     \
+	} while (0)
 
-#define	LENBUFFER	504		// so as to make the whole packet well-rounded ( = 512 bytes)
+#define LENBUFFER 504 // so as to make the whole packet well-rounded ( = 512 bytes)
 struct packet
 {
 	short int conid;
@@ -119,38 +118,39 @@ struct packet
 	char buffer[LENBUFFER];
 };
 
-void set0(struct packet*);
+void set0(struct packet *);
 
-struct packet* ntohp(struct packet*);
-struct packet* htonp(struct packet*);
+struct packet *ntohp(struct packet *);
+struct packet *htonp(struct packet *);
 
-void printpacket(struct packet*, int);
+void printpacket(struct packet *, int);
 
-#define NCOMMANDS 19
+#define NCOMMANDS 21
 enum COMMAND
-	{
-		GET,
-		PUT,
-		MGET,
-		MPUT,
-		CD,
-		LCD,
-		MGETWILD,
-		MPUTWILD,
-		DIR_,		// _ to avoid conflict with directory pointer DIR
-		LDIR,
-		LS,
-		LLS,
-		MKDIR,
-		LMKDIR,
-		RGET,
-		RPUT,
-		PWD,
-		LPWD,
-		EXIT
-	};			// any change made here should also be \
+{
+	GET,
+	PUT,
+	MGET,
+	MPUT,
+	CD,
+	LCD,
+	MGETWILD,
+	MPUTWILD,
+	DIR_, // _ to avoid conflict with directory pointer DIR
+	LDIR,
+	LS,
+	LLS,
+	MKDIR,
+	LMKDIR,
+	RGET,
+	RPUT,
+	PWD,
+	LPWD,
+	RM,
+	LRM,
+	EXIT
+}; // any change made here should also be \
 				replicated accordingly in the commandlist \
 				2D array in client_ftp_fucntions.c
 
 #endif
-

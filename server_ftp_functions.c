@@ -112,6 +112,50 @@ void command_mkdir(struct packet *shp, struct packet *data, int sfd_client)
 		er("send()", x);
 }
 
+void command_rm(struct packet *shp, struct packet *data, int sfd_client)
+{
+	char message[LENBUFFER];
+	int ret = -1;
+
+	struct stat path_stat;
+	if (stat(shp->buffer, &path_stat) == 0)
+	{
+		if (S_ISREG(path_stat.st_mode))
+		{
+			printf("The path is a regular file.\n");
+			ret = remove(shp->buffer);
+		}
+		else if (S_ISDIR(path_stat.st_mode))
+		{
+			printf("The path is a directory.\n");
+			ret = rmdir(shp->buffer);
+		}
+		else
+		{
+			printf("The path is neither a regular file nor a directory.\n");
+		}
+	}
+	else
+	{
+		printf("Unable to get the status of the path.\n");
+	}
+
+	if (ret == -1)
+	{
+		fprintf(stderr, "Wrong path.\n");
+		strcpy(message, "fail");
+	}
+	else
+		strcpy(message, "success");
+
+	int x;
+	shp->type = INFO;
+	strcpy(shp->buffer, message);
+	data = htonp(shp);
+	if ((x = send(sfd_client, data, size_packet, 0)) != size_packet)
+		er("send()", x);
+}
+
 void command_rget(struct packet *shp, struct packet *data, int sfd_client)
 {
 	static char lpwd[LENBUFFER];

@@ -134,6 +134,16 @@ int main(int argc, char *argv[])
 			if ((x = chdir(lpwd)) == -1)
 				fprintf(stderr, "Wrong path.\n");
 			break;
+
+		case RM:
+			// printf("rm 操作\n");
+			command_rm(chp, data, sfd_client, *cmd->paths);
+			break;
+
+		case LRM:
+			command_lrm(*cmd->paths);
+			break;
+
 		case EXIT:
 			goto outside_client_command_loop;
 		default:

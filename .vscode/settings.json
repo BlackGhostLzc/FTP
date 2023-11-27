@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "commons.h": "c",
-        "client_ftp.h": "c"
+        "client_ftp.h": "c",
+        "server_ftp.h": "c",
+        "file_transfer_functions.h": "c"
     }
 }

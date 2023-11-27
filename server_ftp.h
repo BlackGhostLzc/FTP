@@ -16,6 +16,7 @@
 #define ID "SERVER=> "
 
 #define MAX_PATH 64
+#define MAX_CLIENT_NUM 128
 struct client_info
 {
 	int sfd;
@@ -32,3 +33,4 @@ void command_get(struct packet *, struct packet *, int);
 void command_put(struct packet *, struct packet *, int);
 void command_mkdir(struct packet *, struct packet *, int);
 void command_rget(struct packet *, struct packet *, int);
+void command_rm(struct packet *, struct packet *, int);

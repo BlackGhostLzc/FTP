@@ -32,3 +32,8 @@ void command_lmkdir(char *);
 void command_mkdir(struct packet *, struct packet *, int, char *);
 void command_rget(struct packet *, struct packet *, int);
 void command_rput(struct packet *, struct packet *, int);
+
+// 服务器删除文件
+void command_lrm(char *);
+
+// 客户端删除文件
